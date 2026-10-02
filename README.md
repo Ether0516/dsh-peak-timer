@@ -119,6 +119,11 @@ npm test
 
 目前只验证了 Dsh 0.2.0-rc.2 / Windows x64。Dsh 升级后可能需要适配输入框布局。
 
+## 项目文档
+
+- [参与贡献](CONTRIBUTING.md)：问题反馈、修改代码和提交贡献。
+- [更新记录](CHANGELOG.md)：各版本的功能和变化。
+
 ## 许可证
 
 使用 [MIT License](LICENSE)。本项目是社区插件。
