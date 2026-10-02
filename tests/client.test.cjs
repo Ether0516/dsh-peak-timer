@@ -1,0 +1,20 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const vm=require('node:vm');
+const fs=require('node:fs');
+const path=require('node:path');
+test('built client reads instance-bound config forms, mounts official slot and releases owned CSS',()=>{
+  let exports,registration,cleanups=[],styles=[];
+  const form={value:{placement:'auto'},getSnapshot(){assert.equal(this,form);return {value:this.value};},subscribe(){assert.equal(this,form);return ()=>{};}};
+  const React={Fragment:'fragment',createElement:(tag,props,...children)=>({tag,props,children}),useMemo:f=>f(),useSyncExternalStore:(subscribe,get)=>{subscribe(()=>{});return get();},useState:value=>[typeof value==='function'?value():value,()=>{}],useRef:()=>({current:null}),useEffect:()=>{},useLayoutEffect:()=>{}};
+  const sandbox={window:{__ModuleLoader__:{load:r=>exports=r.factory(id=>id==='react'?React:{createPortal:()=>{}})}},document:{createElement:()=>({dataset:{},remove(){styles=styles.filter(s=>s!==this);}}),head:{appendChild:s=>styles.push(s)}},Date,ResizeObserver:class{}};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../lib/client.js'),'utf8'),sandbox);
+  const ctx={effect:f=>cleanups.push(f()),configForms:{get:()=>form},slots:{inject:(name,f)=>{assert.equal(name,'conversation.input.right');f();},register:(options,component)=>{registration={options,component};return ()=>{};}}};
+  exports.apply(ctx);
+  assert.equal(styles.length,1);
+  assert.equal(registration.options.id,'dsh-peak-timer');
+  const view=registration.component(registration.options.inject());
+  assert.equal(view.children[0].children[0].props.role,'timer');
+  for(const cleanup of cleanups)cleanup();
+  assert.equal(styles.length,0);
+});

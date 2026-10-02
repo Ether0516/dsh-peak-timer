@@ -1,0 +1,17 @@
+{
+  "name": "dsh-peak-timer",
+  "version": "0.1.0",
+  "description": "DeepSeek 北京时间峰谷倒计时，支持中国节假日",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {".": "./lib/index.js", "./client": "./lib/client.js", "./package.json": "./package.json"},
+  "files": ["lib", "cordis.patch.yml", "README.md", "LICENSE"],
+  "scripts": {"build": "node scripts/build.cjs", "test": "node --test"},
+  "dsh": {
+    "bundle": {"patch": "./cordis.patch.yml"},
+    "client": {"platform": "web", "inject": ["@deepseek-ai/dsh-client-ui-conversation", "@deepseek-ai/dsh-client-ui-renderer", "@deepseek-ai/dsh-client-ui-settings"], "immediately": true}
+  },
+  "peerDependencies": {"@deepseek-ai/dsh": "0.2.0-rc.2", "@deepseek-ai/schemastery": "~3.18.4"},
+  "peerDependenciesMeta": {"@deepseek-ai/dsh": {"optional": true}, "@deepseek-ai/schemastery": {"optional": true}},
+  "license": "MIT"
+}
