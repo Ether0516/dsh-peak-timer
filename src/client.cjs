@@ -49,9 +49,7 @@ function PeakTimer({form}) {
   const badge = h('span', {
     className:'dsh-peak-badge', 'data-peak':String(state.peak), title:detail,
     role:'timer', 'aria-live':'off', 'aria-label': label+'时段，'+(state.peak?'距空闲':'距高峰')+' '+remaining+(state.estimated?'，预计值':'')
-  }, h('span',{className:'dsh-peak-dot','aria-hidden':true}),
-    h('span',{className:'dsh-peak-count'},remaining),
-    state.estimated ? h('span',{className:'dsh-peak-estimate'},'预计') : null);
+  }, h('span',{className:'dsh-peak-count'},remaining));
   return h(React.Fragment,null,
     h('span',{ref:anchor,className:'dsh-peak-anchor',hidden:bottom}, bottom ? null : badge),
     bottom && mount ? createPortal(badge,mount) : null);

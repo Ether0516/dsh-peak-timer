@@ -1,6 +1,6 @@
 {
   "name": "dsh-peak-timer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Beijing-time peak and off-peak countdown for DeepSeek Harness Desktop, with holiday support.",
   "type": "module",
   "main": "./lib/index.js",
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "node scripts/build.cjs",
-    "test": "node --test"
+    "test": "node --test tests/*.test.cjs"
   },
   "dsh": {
     "bundle": {
@@ -36,7 +36,7 @@
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh": "0.2.0-rc.2",
+    "@deepseek-ai/dsh": "0.2.0-rc.2 || >=0.2.1-rc.2 <0.2.2-0",
     "@deepseek-ai/schemastery": "~3.18.4"
   },
   "peerDependenciesMeta": {
